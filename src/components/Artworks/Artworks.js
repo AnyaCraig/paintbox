@@ -21,6 +21,16 @@ class Artworks extends Component {
   assignArtist = (thisArtwork) => {
     return this.state.artists.find((artist) => (artist.artworks.find(artwork => artwork._id === thisArtwork._id)) !== undefined);
   }
+  // get all artists in the main parent state
+  // pass them down to a compoentn that needs a list of artworks
+
+  // get a list of all artists
+  // make sure that the artists hace the artworks property poluated
+  // iterate through each artist and display their artworks
+  // push artworks into an artworks array (also push in the artists objects
+
+  // randomize the array if you want it to be random
+
 
   populateArtists = () => {
     const artworks = Array.from(this.state.artworks);
