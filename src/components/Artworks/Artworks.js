@@ -1,61 +1,81 @@
 // components/Artworks/Artworks.js
 import React, { Component } from 'react';
 import axios from 'axios';
+import { formatYear } from '../../helpers';
+import { Link } from 'react-router-dom';
+
+import './Artworks.scss';
 
 class Artworks extends Component {
   state = {
-    artworks: [],
-    artists: [],
+    currentArtworks: [],
+
   }
 
-  getArtworks = async () => {
-    const res = await axios.get('/artworks');
-    return res.data;
+  componentDidMount () {
+    this.populateArtworks();
   }
 
-  getArtists = async () => {
-    const res = await axios.get('/artists');
-    return res.data;
+  componentWillReceiveProps() {
+    this.populateArtworks();
   }
+  
+  populateArtworks() {
+    console.log("This props artworks", this.props.artworks);
+    const shuffledArtworks = this.randomizeArtworks(this.props.artworks);
+  
+    console.log("shuffled", shuffledArtworks);
+    this.setState({ currentArtworks: shuffledArtworks });
 
-  assignArtist = (thisArtwork) => {
-    return this.state.artists.find((artist) => (artist.artworks.find(artwork => artwork._id === thisArtwork._id)) !== undefined);
   }
-  // get all artists in the main parent state
-  // pass them down to a compoentn that needs a list of artworks
+  
+  randomizeArtworks(artworks) {
 
-  // get a list of all artists
-  // make sure that the artists hace the artworks property poluated
-  // iterate through each artist and display their artworks
-  // push artworks into an artworks array (also push in the artists objects
+    const array = Array.from(artworks);
 
-  // randomize the array if you want it to be random
-
-
-  populateArtists = () => {
-    const artworks = Array.from(this.state.artworks);
-
-    artworks.forEach(artwork => {
-        artwork.artist = this.assignArtist(artwork);
-    });
-
-    this.setState({artworks});
-  }
-
-  async componentDidMount () {
-    const artworks = await this.getArtworks();
-    const artists = await this.getArtists();
-    this.setState({ artworks, artists });
-    this.populateArtists();
+    var currentIndex = array.length, temporaryValue, randomIndex;
+    
+    // While there remain elements to shuffle...
+    while (currentIndex !== 0) {
+    
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+    
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+    return array;
   }
 
   render () {
+
     return (
-      <div>
+      <div className="artworks-root">
         <h2>Artworks</h2>
-        <ul>
-          {this.state.artworks.map(artwork => <li>{artwork.name}, {artwork.year}, {artwork.artist ? artwork.artist.firstName : ""} {artwork.artist ? artwork.artist.lastName : ""}</li>)}
-        </ul>
+        <div className="gallery-container">
+          {this.state.currentArtworks.map(artwork => {
+
+            return (
+              <Link to={`/artworks/${artwork._id}`}>
+                <div className="artwork-box">
+                  <div className="artwork-image">
+                    <img src={artwork.image} alt={artwork.description}/>
+                  </div>
+                  <div className="artwork-details">
+                    <h3 className="artwork-name">{artwork.name}</h3>
+                    <p className="artwork-year">{formatYear(artwork.year)}</p>
+                    <p className="artwork-artist">{artwork.artist ? artwork.artist.firstName : ""} {artwork.artist ? artwork.artist.lastName : ""}</p>
+                    <p className="artwork-description">{artwork.description}</p>
+                  </div>
+                </div>
+              </Link>
+            );
+          })
+          }
+        </div>
       </div>
     )
   }

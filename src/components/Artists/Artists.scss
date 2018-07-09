@@ -1,0 +1,25 @@
+// artist listing styles
+
+.artists-root {
+    border: 2px solid tomato;
+
+    .artists-container {
+        border: 2px solid green;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .artist-box {
+        border: 2px solid red;
+        min-width: 300px;
+        width: 25%;
+
+        .artist-image {
+            width: 100%;
+            
+            img {
+                width: 100%;
+            }
+        }
+    }
+}

@@ -1,0 +1,33 @@
+// artwork carousel styles
+
+.artist-detail-box {
+    .artist-artwork-slider {
+        border: 2px solid red;
+        display: flex;
+        justify-content: center;
+    }
+
+    .slick-slider {
+        border: 2px solid blue;
+        width: 90%;
+
+    }
+    .slick-track {
+        display: flex;
+        align-items: center;
+    }
+
+    button.slick-arrow {
+        border: 2px solid black;
+    }
+
+    .artwork-slide {
+        border: 2px solid blue;
+        padding: 7px;
+
+
+        img {
+            width: 100%;
+        }
+    }
+}
