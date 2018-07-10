@@ -33,7 +33,6 @@ class App extends Component {
     this.setState({artworks: artworks});
 
     const users = await this.getEntity('users');
-    console.log("Users", users);
     this.setState({users: users });
   }
 
@@ -55,7 +54,7 @@ class App extends Component {
             artist: {
               firstName: artist.firstName,
               lastName: artist.lastName,
-              id: artist._id,
+              _id: artist._id,
             },
             image: artwork.image,
             description: artwork.description,
@@ -89,7 +88,7 @@ class App extends Component {
           <Route path='/artists' exact render={()=><Artists artists={this.state.artists}/>}/>
           <Route path='/artworks' exact render={()=><Artworks artworks={this.state.artworks}/>}/>
           <Route path='/artists/:artist_id' render={props => <Artist {...props} />}/>
-          <Route path='/artworks/:artwork_id' render={props => <Artwork {...props} />}/>
+          <Route path='/artworks/:artwork_id' render={props => <Artwork {...props} artworks={this.state.artworks} artists={this.state.artists} />}/>
 
         </div>
       </Router>

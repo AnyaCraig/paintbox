@@ -1,6 +1,6 @@
 // components/Artworks/Artworks.js
 import React, { Component } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import { formatYear } from '../../helpers';
 import { Link } from 'react-router-dom';
 
@@ -59,19 +59,25 @@ class Artworks extends Component {
           {this.state.currentArtworks.map(artwork => {
 
             return (
-              <Link to={`/artworks/${artwork._id}`}>
+              
                 <div className="artwork-box">
-                  <div className="artwork-image">
-                    <img src={artwork.image} alt={artwork.description}/>
-                  </div>
+                  <Link to={`/artworks/${artwork._id}`}>
+                    <div className="artwork-image">
+                      <img src={artwork.image} alt={artwork.description}/>
+                    </div>
+                  </Link>
                   <div className="artwork-details">
-                    <h3 className="artwork-name">{artwork.name}</h3>
+                    <Link to={`/artworks/${artwork._id}`}>
+
+                      <h3 className="artwork-name">{artwork.name}</h3>
+                    </Link>
                     <p className="artwork-year">{formatYear(artwork.year)}</p>
-                    <p className="artwork-artist">{artwork.artist ? artwork.artist.firstName : ""} {artwork.artist ? artwork.artist.lastName : ""}</p>
+                    <Link to={`/artists/${artwork.artist._id}`}>
+                      <p className="artwork-artist">{artwork.artist ? artwork.artist.firstName : ""} {artwork.artist ? artwork.artist.lastName : ""}</p>
+                    </Link>
                     <p className="artwork-description">{artwork.description}</p>
                   </div>
                 </div>
-              </Link>
             );
           })
           }

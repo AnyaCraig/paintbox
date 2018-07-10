@@ -1,0 +1,24 @@
+.artist-detail-box {
+    border: 3px solid red;
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+
+    .artist-detail-inner {
+        border: 3px solid peru;
+        display: flex;
+        flex-direction: row;
+        min-height: 400px;
+        
+        .artist-detail-image, 
+        .artist-detail-details {
+            width: 50%;
+        }
+
+        .artist-detail-image {
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center 75%;
+        }
+    }
+}

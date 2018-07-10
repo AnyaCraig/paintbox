@@ -29,4 +29,5 @@ const formatLongDate = (date) => {
     return `${day} ${month}, ${year}`;
 }
 
+
 module.exports = { formatYear, formatLongDate };
