@@ -11,6 +11,7 @@ class Artwork extends Component {
   };
 
   setArtwork = (artworkId) => {
+    console.log(this.props.artworks)
     const artwork = this.props.artworks.find(artwork => artwork._id === artworkId);
     console.log(artwork);
 
