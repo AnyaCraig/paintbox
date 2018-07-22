@@ -59,7 +59,8 @@
     "test": "node scripts/test.js --env=jsdom",
     "server": "nodemon lib/server.js --ignore src/",
     "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-    "seeds": "node lib/seeds/index.js"
+    "seeds": "node lib/seeds/index.js",
+    "heroku-postbuild": "cd src && npm install --only=dev && npm install && npm run build"
   },
   "devDependencies": {
     "concurrently": "^3.5.1",
