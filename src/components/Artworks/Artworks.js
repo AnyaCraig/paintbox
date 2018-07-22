@@ -1,31 +1,49 @@
 // components/Artworks/Artworks.js
 import React, { Component } from 'react';
 // import axios from 'axios';
-import { formatYear } from '../../helpers';
+import { formatYear, makeRegEx } from '../../helpers';
 import { Link } from 'react-router-dom';
+import Search from '../Search/Search';
 
 import './Artworks.scss';
 
 class Artworks extends Component {
   state = {
     currentArtworks: [],
+    searchTerm: "",
 
   }
 
   componentDidMount () {
-    this.populateArtworks();
+    this.populateInitialArtworks(this.props.artworks);
   }
 
-  componentWillReceiveProps() {
-    this.populateArtworks();
+  componentWillReceiveProps(nextProps) {
+    this.populateInitialArtworks(nextProps.artworks);
+  }
+
+  onSearchChange = (event) => {
+    const searchTerm = event.target.value;
+    this.setState({searchTerm});
+
+    const filteredBySearch = this.props.artworks.filter((artwork) => {
+      const artworkNameMatch = makeRegEx(searchTerm, artwork.name);
+      const artistFirstNameMatch = makeRegEx(searchTerm, artwork.artist.firstName);
+      const artistLastNameMatch = makeRegEx(searchTerm, artwork.artist.lastName);
+      const artworkYearMatch = makeRegEx(searchTerm, new Date(artwork.year).getFullYear());
+      const artworkDescriptionMatch = makeRegEx(searchTerm, artwork.description);
+      const artistFullNameMatch = makeRegEx(searchTerm, `${artwork.artist.firstName} ${artwork.artist.lastName}`)
+
+      return artworkDescriptionMatch || artworkNameMatch || artistFirstNameMatch || artistLastNameMatch || artworkYearMatch || artistFullNameMatch;
+    });
+
+    const shuffled = this.randomizeArtworks(filteredBySearch);
+    this.setState({currentArtworks: shuffled});
   }
   
-  populateArtworks() {
-    console.log("This props artworks", this.props.artworks);
-    const shuffledArtworks = this.randomizeArtworks(this.props.artworks);
-  
-    console.log("shuffled", shuffledArtworks);
-    this.setState({ currentArtworks: shuffledArtworks });
+  populateInitialArtworks(artworks) {
+    const randomizedArtworks = this.randomizeArtworks(artworks);
+    this.setState({ currentArtworks: randomizedArtworks });
 
   }
   
@@ -55,11 +73,11 @@ class Artworks extends Component {
     return (
       <div className="artworks-root">
         <h2>Artworks</h2>
+        <Search onSearchChange={this.onSearchChange} searchTerm={this.state.searchTerm}/>
         <div className="gallery-container">
           {this.state.currentArtworks.map(artwork => {
 
             return (
-              
                 <div className="artwork-box">
                   <Link to={`/artworks/${artwork._id}`}>
                     <div className="artwork-image">
@@ -78,6 +96,7 @@ class Artworks extends Component {
                     <p className="artwork-description">{artwork.description}</p>
                   </div>
                 </div>
+         
             );
           })
           }

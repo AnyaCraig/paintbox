@@ -29,5 +29,12 @@ const formatLongDate = (date) => {
     return `${day} ${month}, ${year}`;
 }
 
+const makeRegEx = (searchTerm, text) => {
+    try {
+        return new RegExp(searchTerm, 'i').test(text);
+    } catch(e) {
+        return false;
+    }
+}
 
-module.exports = { formatYear, formatLongDate };
+module.exports = { formatYear, formatLongDate, makeRegEx };

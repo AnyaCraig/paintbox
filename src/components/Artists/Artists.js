@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Search from '../Search/Search';
 // import axios from 'axios';
 import './Artists.scss';
 
@@ -13,6 +14,7 @@ class Artists extends Component {
     return (
       <div className="artists-root">
         <h2>Artists</h2>
+        <Search onSearchChange={(e) => this.props.onSearchChange(e)}/>
         <div className="artists-container">
           {this.props.artists.map(artist => {
             return (

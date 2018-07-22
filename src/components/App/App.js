@@ -18,7 +18,8 @@ class App extends Component {
     curentUser: null,
     users: [],
     artists: [],
-    artworks: []
+    artworks: [],
+    artistSearchTerm: "",
   };
 
   login = async () => {
@@ -31,7 +32,7 @@ class App extends Component {
     this.setState({ user });
 
     // const artists = await this.getEntity('artists');
-    this.getArtists();
+    this.refreshArtists();
     
     // const artworks = this.assembleArtworks();
     // this.setState({artworks: artworks});
@@ -45,17 +46,11 @@ class App extends Component {
     return res.data;
   }
   
-  getArtists = async () => {
+  refreshArtists = async () => {
     try {
-      const res = await axios.get('/artists');
-      
-      console.log("RESSSS", res.data);
+      const res = await axios.get('/artists?q=' + this.state.artistSearchTerm);
       const artists = res.data;
-      this.setState({ artists });
-      this.setArtworks();
-      
-
-
+      this.setState({ artists }, () => this.setArtworks());
     } catch(e) {
       console.error(e);
     }
@@ -66,15 +61,9 @@ class App extends Component {
     const artworks = [];
 
     // is there a better way to do this without forEach? Maybe with reduce?
-
-
     // this.state.artists.reduce((accumulator, current) => {
-
     //   accumulator.concat(current.artworks)
-    
-
     // }, []);
-
 
     this.state.artists.forEach(artist => {
 
@@ -105,6 +94,12 @@ class App extends Component {
     this.setState({artworks});
   }
 
+  onArtistSearchChange = (e) => {
+    console.log("searchTerm", e.target.value);
+    this.setState({ artistSearchTerm: e.target.value}, () => this.refreshArtists());
+
+  }
+
 
 
   render() {
@@ -121,11 +116,11 @@ class App extends Component {
           <p>To see a list of artworks, <Link to='/artworks'>click here</Link></p>
           <p>Too add an artist, <Link to='/add-artist'>click here</Link></p>
           <Route path='/users' render={()=><Users users={this.state.users}/>}/>
-          <Route path='/artists' exact render={(props)=><Artists {...props} artists={this.state.artists}/>}/>
+          <Route path='/artists' exact render={(props)=><Artists {...props} artists={this.state.artists} onSearchChange={(e) => this.onArtistSearchChange(e)}/>}/>
           <Route path='/artworks' exact render={()=><Artworks artworks={this.state.artworks}/>}/>
           <Route path='/artists/:artist_id' render={props => <Artist {...props} />}/>
           <Route path='/artworks/:artwork_id' render={props => <Artwork {...props} artworks={this.state.artworks} artists={this.state.artists} />}/>
-          <Route path='/add-artist' render={props => <AddArtist {...props} getArtists={this.getArtists} />}/>
+          <Route path='/add-artist' render={props => <AddArtist {...props} getArtists={this.refreshArtists} />}/>
         </div>
       </Router>
     );
