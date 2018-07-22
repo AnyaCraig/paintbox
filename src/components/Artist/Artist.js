@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import ArtworkCarousel from '../ArtworkCarousel/ArtworkCarousel';
 import './Artist.scss';
 
@@ -59,6 +60,10 @@ class Artist extends Component {
         </div>
         <div className="artist-artwork-slider">
             <ArtworkCarousel artworks={artist.artworks} artist={artist}/>
+        </div>
+        <div className="add-artwork-link-container">
+          <Link to={`/add-artwork/${artist._id}`}>{`Add an artwork to ${artist.firstName} ${artist.lastName}`}</Link>
+        
         </div>
       </div>
     )

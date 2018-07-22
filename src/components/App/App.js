@@ -10,6 +10,7 @@ import Artworks from '../Artworks/Artworks';
 import Artist from '../Artist/Artist';
 import Artwork from '../Artwork/Artwork';
 import AddArtist from '../AddArtist/AddArtist';
+import AddArtwork from '../AddArtwork/AddArtwork';
 
 
 class App extends Component {
@@ -121,6 +122,7 @@ class App extends Component {
           <Route path='/artists/:artist_id' render={props => <Artist {...props} />}/>
           <Route path='/artworks/:artwork_id' render={props => <Artwork {...props} artworks={this.state.artworks} artists={this.state.artists} />}/>
           <Route path='/add-artist' render={props => <AddArtist {...props} getArtists={this.refreshArtists} />}/>
+          <Route path='/add-artwork/:artist_id' render={props => <AddArtwork {...props} getArtists={this.refreshArtists} />}/>
         </div>
       </Router>
     );
