@@ -77,7 +77,7 @@ class Artist extends Component {
         </div>
         <div className="delete-artist-container">
           <button onClick={e => this.deleteArtist(artist._id)}>Delete this mofo</button>
-          </div>
+        </div>
       </div>
     )
   }

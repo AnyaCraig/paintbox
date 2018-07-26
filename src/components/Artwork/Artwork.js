@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-// import axios from 'axios';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import ArtworkCarousel from '../ArtworkCarousel/ArtworkCarousel';
 import './Artwork.scss';
@@ -36,6 +36,14 @@ class Artwork extends Component {
     }
   }
 
+  deleteArtwork = async (id) => {
+
+    console.log("DELETING ARTWORK");
+    await axios.delete(`/artworks/${id}`)
+    this.props.getArtists();
+    this.props.history.push('/artworks');
+  }
+
   componentDidMount() {
     const { artwork_id } = this.props.match.params;
     this.setArtwork(artwork_id);
@@ -67,6 +75,10 @@ class Artwork extends Component {
         {carouselRequirements && (
           <ArtworkCarousel artworks={this.state.otherWorks} artist={artwork.artist} />
         )}
+
+        <div className="delete-artwork-container">
+          <button onClick={e => this.deleteArtwork(artwork._id)}>Delete this thing</button>
+        </div>
       </div>
     )
   }
