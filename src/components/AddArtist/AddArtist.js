@@ -18,10 +18,64 @@ class AddArtist extends Component {
         daysInBirthMonth: null,
         daysInDeathMonth: null,
         errorMessage: "",
+        editArtist: undefined,
     };
 
-    handleArtistChange = (event) => {
+    async componentDidMount() {
+        const { artist_id } = this.props.match.params;
+        const artist = await this.getArtist(artist_id);
+        // this.setState({ editArtist: artist });
+        this.prepareArtistToEdit(artist);
+    }
 
+    prepareArtistToEdit = (artist) => {
+        console.log(artist);
+
+        const firstName = artist.firstName;
+        const lastName = artist.lastName;
+        const birthDateMonth = monthsInYear[new Date(artist.birthDate).getMonth()].name;
+        const birthDateDay = new Date(artist.birthDate).getDate();
+        const birthDateYear = new Date(artist.birthDate).getFullYear();
+        const deathDateMonth = monthsInYear[new Date(artist.deathDate).getMonth()].name;
+        const deathDateDay = new Date(artist.deathDate).getDate();
+        const deathDateYear = new Date(artist.deathDate).getFullYear();
+        const description = artist.description;
+        const image = artist.image;
+
+        if (birthDateMonth) {
+            const daysInMonth = monthsInYear[new Date(artist.birthDate).getMonth()].days;
+            this.determineDaysInMonth('birth', birthDateMonth, daysInMonth);
+        }
+
+
+        if (deathDateMonth) {
+            const daysInMonth = monthsInYear[new Date(artist.deathDate).getMonth()].days;
+            this.determineDaysInMonth('death', deathDateMonth, daysInMonth);
+        }
+
+        console.log(firstName, lastName, birthDateMonth, birthDateDay, birthDateYear, deathDateDay, deathDateMonth, deathDateYear, description, image);
+
+        this.setState({
+            firstName, 
+            lastName, 
+            birthDateMonth, 
+            birthDateDay, 
+            birthDateYear,
+            deathDateMonth, 
+            deathDateDay,
+            deathDateYear, 
+            description, 
+            image 
+        });
+
+    }
+
+    getArtist = async (artist_id) => {
+        const res = await axios.get(`/artists/${artist_id}`)
+        return res.data;
+    }
+
+    handleArtistChange = (event) => {
 
         const name = event.target.name;
         const value = event.target.value;
@@ -33,10 +87,9 @@ class AddArtist extends Component {
         });
     }
 
-    handleMonthChange = (birthOrDeath, event) => {
-        const value = event.target.value.split(",");
-        const month = value[0];
-        const daysInMonth = value[1];
+    determineDaysInMonth = (birthOrDeath, month, daysInMonth) => {
+
+        console.log("determining days in month", birthOrDeath, month, daysInMonth);
 
         let stateMonthValue;
         let stateDaysInMonthValue;
@@ -55,6 +108,16 @@ class AddArtist extends Component {
     
             [stateDaysInMonthValue]: daysInMonth,
         });
+    }
+
+    handleMonthChange = (birthOrDeath, event) => {
+
+        console.log(event.target.value);
+        const value = event.target.value.split(",");
+        const month = value[0];
+        const daysInMonth = value[1];
+
+        this.determineDaysInMonth(birthOrDeath, month, daysInMonth);
     }
 
     createDaysDropdown(birthOrDeath) {
@@ -89,7 +152,7 @@ class AddArtist extends Component {
         this.onSubmit(artist);
     }
 
-    onSubmit = async (artist) => {
+    pushNewArtist = async (artist) => {
 
         try {
             console.log('SUBMIT!');
@@ -98,47 +161,87 @@ class AddArtist extends Component {
             if (res) {
                 this.props.getArtists();
                 this.props.history.push('/artists');
-
             }
         } catch(e) {
 
         }
+
     }
 
+    editExistingArtist = async artist => {
+
+        const { artist_id } = this.props.match.params;
+
+        console.log("artist id", artist_id);
+
+        try {
+            console.log('EDIT!');
+            const res = await axios.patch(`/artists/${artist_id}`, artist);
+            console.log("res is", res);
+
+            if (res) {
+
+                this.props.getArtists();
+                console.log("res exists", res);
+                this.props.history.push('/artists');
+            }
+        } catch(e) {
+
+            console.log("error is", e);
+
+        }
+    }
+
+    onSubmit = (artist) => {
+
+        if (!this.props.edit) {
+            this.pushNewArtist(artist);
+    
+        } else {
+            this.editExistingArtist(artist)
+        }
+            
+        
+    }
 
     render () {
+
+        const birthMonthValue = this.state.birthDateMonth ? [this.state.birthDateMonth, this.state.daysInBirthMonth] : [monthsInYear[0].name, monthsInYear[0].days];
+
+        const deathMonthValue = this.state.deathDateMonth ? [this.state.deathDateMonth, this.state.daysInDeathMonth] : [monthsInYear[0].name, monthsInYear[0].days];
+
         return (
             <div className="add-artist-container">
                 <h2>Add an Artist</h2>
                 <form>
-                    <input name="firstName" type="text" onChange={this.handleArtistChange}/>
-                    <input name="lastName" type="text" onChange={this.handleArtistChange}/>
-                    <select name="birthDateMonth" onChange={this.handleMonthChange.bind(this, 'birth')}>
+                    <input name="firstName" value={this.state.firstName} type="text" onChange={this.handleArtistChange}/>
+                    <input name="lastName" value={this.state.lastName} type="text" onChange={this.handleArtistChange}/>
+                    <select name="birthDateMonth" value={ birthMonthValue } onChange={this.handleMonthChange.bind(this, 'birth')}>
                         {monthsInYear.map((month) => {
                             return (
                                 <option value={[month.name, month.days]} data-days={month.days}>{month.name}</option>
                             );
                         })}
                     </select>
-                    <select name="birthDateDay" onChange={this.handleArtistChange}>
+                    <select name="birthDateDay" value={this.state.birthDateDay} onChange={this.handleArtistChange}>
                         { this.createDaysDropdown('birth') }
                     </select>
-                    <input name="birthDateYear" type="text" onChange={this.handleArtistChange}/>
+                    <input name="birthDateYear" value={this.state.birthDateYear} type="text" onChange={this.handleArtistChange}/>
 
-                    <select name="deathDateMonth" onChange={this.handleMonthChange.bind(this, 'death')}>
+                    <select name="deathDateMonth" value={ deathMonthValue } onChange={this.handleMonthChange.bind(this, 'death')}>
                         {monthsInYear.map((month) => {
                             return (
                                 <option value={[month.name, month.days]} data-days={month.days}>{month.name}</option>
                             );
                         })}
                     </select>
-                    <select name="deathDateDay" onChange={this.handleArtistChange}>
+                    <select name="deathDateDay" value={this.state.deathDateDay} onChange={this.handleArtistChange}>
                         { this.createDaysDropdown('death') }
                     </select>
 
-                    <input name="deathDateYear" type="text" onChange={this.handleArtistChange} />
-                    <textarea name="description" onChange={this.handleArtistChange}></textarea>
-                    <input name="image" type="text" onChange={this.handleArtistChange}/>
+                    <input name="deathDateYear" value={this.state.deathDateYear} type="text" onChange={this.handleArtistChange} />
+                    <textarea name="description" value={this.state.description} onChange={this.handleArtistChange}></textarea>
+                    <input name="image" value={this.state.image} type="text" onChange={this.handleArtistChange}/>
                 </form>
                 <button onClick={this.packageArtist}>SUBMIT</button>
             </div>

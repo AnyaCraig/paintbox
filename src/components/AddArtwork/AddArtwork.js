@@ -70,12 +70,7 @@ class AddArtwork extends Component {
                 <form>
                     <input name="name" type="text" placeholder="name" onChange={this.handleArtworkChange}/>
                     <input name="year" type="text" placeholder="year" onChange={this.handleArtworkChange}/>
-
                     <input name="image" type="text" placeholder="image url" onChange={this.handleArtworkChange}/>
-
-
-
-
                     <input name="medium" type="text" placeholder="medium" onChange={this.handleArtworkChange} />
                     <textarea name="description" placeholder="description" onChange={this.handleArtworkChange}></textarea>
                 </form>

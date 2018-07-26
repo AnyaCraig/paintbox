@@ -16,6 +16,14 @@ class Artist extends Component {
     return res.data;
   }
 
+  deleteArtist = async (id) => {
+
+    console.log("DELETING ARTIST");
+    await axios.delete(`/artists/${id}`)
+    // this.refresh()
+    this.props.history.push('/artists');
+  }
+
   async componentDidMount() {
     const { artist_id } = this.props.match.params;
     const artist = await this.getArtist(artist_id);
@@ -63,8 +71,13 @@ class Artist extends Component {
         </div>
         <div className="add-artwork-link-container">
           <Link to={`/add-artwork/${artist._id}`}>{`Add an artwork to ${artist.firstName} ${artist.lastName}`}</Link>
-        
         </div>
+        <div className="edit-artist-link-container">
+          <Link to={`/edit-artist/${artist._id}`}>{`Edit details for ${artist.firstName} ${artist.lastName}`}</Link>
+        </div>
+        <div className="delete-artist-container">
+          <button onClick={e => this.deleteArtist(artist._id)}>Delete this mofo</button>
+          </div>
       </div>
     )
   }

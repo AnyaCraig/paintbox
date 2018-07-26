@@ -10,6 +10,10 @@ import { formatYear } from '../../helpers';
 
 class Artists extends Component {
 
+  async componentDidMount() {
+    this.props.refreshArtists();
+  }
+
   render () {
     return (
       <div className="artists-root">
