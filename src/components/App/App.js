@@ -125,6 +125,7 @@ class App extends Component {
           <Route path='/users' render={()=><Users users={this.state.users}/>}/>
           <Route path='/artists' exact render={(props)=><Artists {...props} artists={this.state.artists} onSearchChange={(e) => this.onArtistSearchChange(e)} refreshArtists={() => this.refreshArtists()}/>}/>
           <Route path='/artworks' exact render={()=><Artworks artworks={this.state.artworks}/>}/>
+          <Route path='/' exact render={()=><Artworks artworks={this.state.artworks}/>}/>
           <Route path='/artists/:artist_id/edit-artwork/:artwork_id' exact render={props => <AddArtwork {...props} getArtists={this.refreshArtists} edit={true}/>}/>
           <Route path='/artists/:artist_id' exact render={props => <Artist {...props} />}/>
           <Route path='/artworks/:artwork_id' render={props => <Artwork {...props} artworks={this.state.artworks} artists={this.state.artists} getArtists={this.refreshArtists} />}/>
