@@ -130,6 +130,10 @@ class AddArtwork extends Component {
         }
     }
 
+    determineHeading = () => {
+        return this.props.edit ? `Edit Details for ${this.state.name}` : "Add an Artwork";
+    }
+
     render () {
 
         // console.log("props", this.props);
@@ -138,7 +142,7 @@ class AddArtwork extends Component {
 
         return (
             <div className="add-artwork-container">
-                <h2>Add an Artwork</h2>
+                <h2>{this.determineHeading()}</h2>
                 <form>
                     <input name="name" type="text" value={this.state.name} placeholder="name" onChange={this.handleArtworkChange}/>
                     <input name="year" type="text" value={this.state.year} placeholder="year" onChange={this.handleArtworkChange}/>

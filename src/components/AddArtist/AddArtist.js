@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import './AddArtist.scss';
 import {monthsInYear, maxDaysInMonth} from '../../constants';
+import { runInThisContext } from 'vm';
 
 class AddArtist extends Component {
     state = {
@@ -204,6 +205,10 @@ class AddArtist extends Component {
         
     }
 
+    determineHeading = () => {
+        return this.props.edit ? `Edit Details for ${this.state.firstName} ${this.state.lastName}` : "Add an Artist";
+    }
+
     render () {
 
         const birthMonthValue = this.state.birthDateMonth ? [this.state.birthDateMonth, this.state.daysInBirthMonth] : [monthsInYear[0].name, monthsInYear[0].days];
@@ -212,7 +217,7 @@ class AddArtist extends Component {
 
         return (
             <div className="add-artist-container">
-                <h2>Add an Artist</h2>
+                <h2>{this.determineHeading()}</h2>
                 <form>
                     <input name="firstName" value={this.state.firstName} type="text" onChange={this.handleArtistChange} placeholder="First name"/>
                     <input name="lastName" value={this.state.lastName} type="text" onChange={this.handleArtistChange} placeholder="Last name"/>
