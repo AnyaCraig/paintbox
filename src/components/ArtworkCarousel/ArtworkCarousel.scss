@@ -2,14 +2,22 @@
 
 
 
-.artist-artwork-slider {
-    border: 2px solid red;
+.artist-artwork-slider ,
+.other-works-carousel {
     display: flex;
     justify-content: center;
+    background: #1e2827;
+    padding: 25px 0;
+
+    button::before {
+        color:#fcfeff;
+        
+    }
+
 }
 
 .slick-slider {
-    border: 2px solid blue;
+    // border: 2px solid blue;
     width: 90%;
 
 }
@@ -19,11 +27,11 @@
 }
 
 button.slick-arrow {
-    border: 2px solid black;
+    // border: 2px solid black;
 }
 
 .artwork-slide {
-    border: 2px solid blue;
+    // border: 2px solid blue;
     padding: 7px;
 
 

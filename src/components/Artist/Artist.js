@@ -69,14 +69,16 @@ class Artist extends Component {
         <div className="artist-artwork-slider">
             <ArtworkCarousel artworks={artist.artworks} artist={artist}/>
         </div>
-        <div className="add-artwork-link-container">
-          <Link to={`/add-artwork/${artist._id}`}>{`Add an artwork to ${artist.firstName} ${artist.lastName}`}</Link>
-        </div>
-        <div className="edit-artist-link-container">
-          <Link to={`/edit-artist/${artist._id}`}>{`Edit details for ${artist.firstName} ${artist.lastName}`}</Link>
-        </div>
-        <div className="delete-artist-container">
-          <button onClick={e => this.deleteArtist(artist._id)}>Delete this mofo</button>
+        <div className="artist-options">
+          <div className="link-container add-artwork-link-container">
+            <Link to={`/add-artwork/${artist._id}`}>{`Add an artwork by ${artist.firstName} ${artist.lastName}`}</Link>
+          </div>
+          <div className="link-container edit-artist-link-container">
+            <Link to={`/edit-artist/${artist._id}`}>Edit artist details</Link>
+          </div>
+          <div className="delete-artist-container">
+            <button onClick={e => this.deleteArtist(artist._id)}>Delete this mofo</button>
+          </div>
         </div>
       </div>
     )

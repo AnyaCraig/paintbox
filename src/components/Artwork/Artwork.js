@@ -68,22 +68,26 @@ class Artwork extends Component {
         <div className="artwork-detail-details">
           <h2>{artwork.name}</h2>
           <Link to={`/artists/${artwork.artist._id}`}>
-            <h4>{artwork.artist.firstName} {artwork.artist.lastName}</h4>
+            <h4>{artwork.artist.firstName} {artwork.artist.lastName}<span className="artwork-year">({parseInt(artwork.year)})</span></h4>
           </Link> 
-
-          <p className="artwork-year">{parseInt(artwork.year)}</p>
           <p className="artwork-description">{artwork.description}</p>
         </div>
+        <div className="artwork-options">
+          <div className="edit-artwork-link-container">
+            <Link to={`/artists/${artwork.artist._id}/edit-artwork/${artwork._id}`}>{`Edit details for ${artwork.name}`}</Link>
+          </div>
+          <div className="delete-artwork-container">
+            <button onClick={e => this.deleteArtwork(artwork._id)}>Delete this thing</button>
+          </div>
+        </div>
         {carouselRequirements && (
-          <ArtworkCarousel artworks={this.state.otherWorks} artist={artwork.artist} />
+          <div className="other-works-carousel-container">
+            <p className="other-works-heading">Other works by <Link to={`/artists/${artwork.artist._id}`}>{`${artwork.artist.firstName} ${artwork.artist.lastName}`}</Link></p>
+            <div className="other-works-carousel">
+              <ArtworkCarousel artworks={this.state.otherWorks} artist={artwork.artist} />
+            </div>
+          </div>
         )}
-
-        <div className="delete-artwork-container">
-          <button onClick={e => this.deleteArtwork(artwork._id)}>Delete this thing</button>
-        </div>
-        <div className="edit-artwork-link-container">
-          <Link to={`/artists/${artwork.artist._id}/edit-artwork/${artwork._id}`}>{`Edit details for ${artwork.name}`}</Link>
-        </div>
       </div>
     )
   }

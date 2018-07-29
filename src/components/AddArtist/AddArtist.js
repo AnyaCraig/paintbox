@@ -214,36 +214,48 @@ class AddArtist extends Component {
             <div className="add-artist-container">
                 <h2>Add an Artist</h2>
                 <form>
-                    <input name="firstName" value={this.state.firstName} type="text" onChange={this.handleArtistChange}/>
-                    <input name="lastName" value={this.state.lastName} type="text" onChange={this.handleArtistChange}/>
-                    <select name="birthDateMonth" value={ birthMonthValue } onChange={this.handleMonthChange.bind(this, 'birth')}>
-                        {monthsInYear.map((month) => {
-                            return (
-                                <option value={[month.name, month.days]} data-days={month.days}>{month.name}</option>
-                            );
-                        })}
-                    </select>
-                    <select name="birthDateDay" value={this.state.birthDateDay} onChange={this.handleArtistChange}>
-                        { this.createDaysDropdown('birth') }
-                    </select>
-                    <input name="birthDateYear" value={this.state.birthDateYear} type="text" onChange={this.handleArtistChange}/>
+                    <input name="firstName" value={this.state.firstName} type="text" onChange={this.handleArtistChange} placeholder="First name"/>
+                    <input name="lastName" value={this.state.lastName} type="text" onChange={this.handleArtistChange} placeholder="Last name"/>
+                    <div className="select-container">
+                        <label for="birthMonth">Select birth month</label>
+                        <select id="birthMonth" name="birthDateMonth" value={ birthMonthValue } onChange={this.handleMonthChange.bind(this, 'birth')}>
+                            {monthsInYear.map((month) => {
+                                return (
+                                    <option value={[month.name, month.days]} data-days={month.days}>{month.name}</option>
+                                );
+                            })}
+                        </select>
+                    </div>
+                    <div className="select-container">
+                        <label for="birthDay">Select birth date</label>
+                        <select id="birthDay" name="birthDateDay" value={this.state.birthDateDay} onChange={this.handleArtistChange}>
+                            { this.createDaysDropdown('birth') }
+                        </select>
+                    </div>
+                    <input name="birthDateYear" value={this.state.birthDateYear} type="text" onChange={this.handleArtistChange} placeholder="Year of birth"/>
+                    <div className="select-container">
+                        <label for="deathMonth">Select death month</label>
+                        <select id="deathMonth" name="deathDateMonth" value={ deathMonthValue } onChange={this.handleMonthChange.bind(this, 'death')}>
+                            {monthsInYear.map((month) => {
+                                return (
+                                    <option value={[month.name, month.days]} data-days={month.days}>{month.name}</option>
+                                );
+                            })}
+                        </select>
+                    </div>
+                    <div className="select-container">
+                        <label for="deathDate">Select death date</label>
+                        <select id="deathDate" name="deathDateDay" value={this.state.deathDateDay} onChange={this.handleArtistChange}>
+                            { this.createDaysDropdown('death') }
+                        </select>
+                    </div>
 
-                    <select name="deathDateMonth" value={ deathMonthValue } onChange={this.handleMonthChange.bind(this, 'death')}>
-                        {monthsInYear.map((month) => {
-                            return (
-                                <option value={[month.name, month.days]} data-days={month.days}>{month.name}</option>
-                            );
-                        })}
-                    </select>
-                    <select name="deathDateDay" value={this.state.deathDateDay} onChange={this.handleArtistChange}>
-                        { this.createDaysDropdown('death') }
-                    </select>
 
-                    <input name="deathDateYear" value={this.state.deathDateYear} type="text" onChange={this.handleArtistChange} />
-                    <textarea name="description" value={this.state.description} onChange={this.handleArtistChange}></textarea>
-                    <input name="image" value={this.state.image} type="text" onChange={this.handleArtistChange}/>
+                    <input name="deathDateYear" value={this.state.deathDateYear} type="text" onChange={this.handleArtistChange} placeholder="Year of death" />
+                    <textarea name="description" placeholder="description" value={this.state.description} onChange={this.handleArtistChange}></textarea>
+                    <input name="image" placeholder="Add an image url" value={this.state.image} type="text" onChange={this.handleArtistChange}/>
                 </form>
-                <button onClick={this.packageArtist}>SUBMIT</button>
+                <button onClick={this.packageArtist}>Add this artist</button>
             </div>
         );
     }

@@ -1,26 +1,55 @@
 // artist listing styles
 
 .artists-root {
-    border: 2px solid tomato;
+    // border: 2px solid tomato;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    h2 {
+        margin-left: 10px;
+        font-family: 'Fascinate', cursive;
+        text-transform: uppercase;
+        font-size: 40px;
+        color: #1f5059;
+    }
 
     .artists-container {
-        border: 2px solid green;
+        // border: 2px solid green;
         display: flex;
         flex-wrap: wrap;
         max-width: 1200px;
-        justify-content: space-between;
+        justify-content: flex-start;
     }
 
     
     .artists-container a {
-        border: 2px solid red;
-        background-color: white;
-        min-width: 300px;
-        width: 25%;
-        margin-bottom: 25px;
+        border-top: 3px solid #afc7ce;
+        border-left: 3px solid #afc7ce;
+        background-color:#fcfeff;
+        min-width: 250px;
+        width: calc(25% - 20px);
+        margin: 10px;
+        cursor: pointer;
+        text-decoration: none;
         // margin: 20px;
+
+        .artist-details {
+            padding: 20px;
+            h3 {
+                margin: 0 0 15px 0;
+                color: #1f5059;
+                font-size: 20px;
+                text-decoration: none;
+            }
+            
+            p {
+                text-decoration: none;
+                color: #1e2827;
+            }
+        }
 
         .artist-image {
             width: 100%;

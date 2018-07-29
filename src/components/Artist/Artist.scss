@@ -1,15 +1,17 @@
 .artist-detail-box {
-    border: 3px solid red;
-    background-color: white;
+    // border: 3px solid red;
+    background-color: #fcfeff;
     width: 80%;
     max-width: 800px;
-    margin: 0 auto;
+    margin: 60px auto;
+    border-top: 5px solid #afc7ce;
+    border-left: 5px solid #afc7ce;
 
     .artist-detail-inner {
-        border: 3px solid peru;
+        // border: 3px solid peru;
         display: flex;
         flex-direction: row;
-        min-height: 400px;
+        min-height: 500px;
         
         .artist-detail-image, 
         .artist-detail-details {
@@ -19,7 +21,64 @@
         .artist-detail-image {
             background-size: cover;
             background-repeat: no-repeat;
-            background-position: center 75%;
+            background-position: center 25%;
+        }
+
+        .artist-detail-details {
+            padding: 25px;
+
+            .artist-name {
+                color: #1f5059;
+                font-size: 26px;
+            }
+
+            .artist-birth-death {
+
+                color: #3f7c87;
+            }
+        }
+    }
+
+    .artist-options {
+        background: #1e2827;
+        // border: 3px solid gold;
+        display: flex;
+        flex-direction: container;
+        justify-content: space-around;
+        padding: 15px 30px 40px 30px;
+
+        .link-container {
+            background:#c8f7f4;
+            padding: 10px 15px;
+            color: #1e2827;
+            border-radius: 7px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+
+            a {
+
+                text-decoration: none;
+                color: black;
+                font-size: 16px;
+            }
+
+            &:nth-child(2) {
+                background: #8ad8d3;
+            }
+        }
+
+        .delete-artist-container button {
+            border: 0 none;
+            padding: 10px 15px;
+            color: #1e2827;
+            border-radius: 7px;
+            font-size: 22px;
+            background:#42a59f;
+            font-family: 'PT Serif', serif;
+            font-size: 16px;
+        
         }
     }
 }

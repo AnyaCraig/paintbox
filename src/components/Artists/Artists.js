@@ -18,7 +18,7 @@ class Artists extends Component {
     return (
       <div className="artists-root">
         <h2>Artists</h2>
-        <Search onSearchChange={(e) => this.props.onSearchChange(e)}/>
+        <Search onSearchChange={(e) => this.props.onSearchChange(e)} placeholder="Search for an artist"/>
         <div className="artists-container">
           {this.props.artists.map(artist => {
             return (

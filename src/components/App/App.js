@@ -111,11 +111,17 @@ class App extends Component {
     return (
       <Router>
         <div className='app-container'>
-          <h1>Welcome, {this.state.user.firstName}!</h1>	
-          <p>To see a list of users, <Link to='/users'>click here</Link></p>
-          <p>To see a list of artists, <Link to='/artists'>click here</Link></p>
-          <p>To see a list of artworks, <Link to='/artworks'>click here</Link></p>
-          <p>Too add an artist, <Link to='/add-artist'>click here</Link></p>
+        <div className="app-header">
+        <Link to='/artworks'>
+          <h1 className="title">Welcome to Paintbox, {this.state.user.firstName}!</h1>	
+        </Link>
+          <div className="links">
+            {/* <Link className="header-link" to='/users'>Users</Link> */}
+            <Link className="header-link" to='/artists'>Artists</Link>
+            <Link className="header-link" to='/artworks'>Artworks</Link>
+            <Link className="header-link add-artist" to='/add-artist'>Add an artist</Link>
+          </div>
+        </div>
           <Route path='/users' render={()=><Users users={this.state.users}/>}/>
           <Route path='/artists' exact render={(props)=><Artists {...props} artists={this.state.artists} onSearchChange={(e) => this.onArtistSearchChange(e)} refreshArtists={() => this.refreshArtists()}/>}/>
           <Route path='/artworks' exact render={()=><Artworks artworks={this.state.artworks}/>}/>

@@ -73,7 +73,7 @@ class Artworks extends Component {
     return (
       <div className="artworks-root">
         <h2>Artworks</h2>
-        <Search onSearchChange={this.onSearchChange} searchTerm={this.state.searchTerm}/>
+        <Search onSearchChange={this.onSearchChange} searchTerm={this.state.searchTerm} placeholder="Search for an artwork"/>
         <div className="gallery-container">
           {this.state.currentArtworks.map(artwork => {
 
@@ -89,11 +89,14 @@ class Artworks extends Component {
 
                       <h3 className="artwork-name">{artwork.name}</h3>
                     </Link>
-                    <p className="artwork-year">{formatYear(artwork.year)}</p>
-                    <Link to={`/artists/${artwork.artist._id}`}>
-                      <p className="artwork-artist">{artwork.artist ? artwork.artist.firstName : ""} {artwork.artist ? artwork.artist.lastName : ""}</p>
-                    </Link>
-                    <p className="artwork-description">{artwork.description}</p>
+                    {/* <p className="artwork-year">{formatYear(artwork.year)}</p> */}
+                    <div className="artist-year">
+                      <Link to={`/artists/${artwork.artist._id}`}>
+                        <span className="artwork-artist">{artwork.artist ? artwork.artist.firstName : ""} {artwork.artist ? artwork.artist.lastName : ""}</span>
+                      </Link>
+                      <span className="artwork-year">({formatYear(artwork.year)})</span>
+                    </div>
+                    
                   </div>
                 </div>
          

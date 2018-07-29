@@ -1,0 +1,45 @@
+.add-artwork-container {
+    margin: 60px auto;
+    width: 70%;
+    max-width: 900px;
+    background-color: rgba(0, 75, 96, 0.7);
+    padding: 30px;
+    border-left: 5px solid #afc7ce;
+    border-top: 5px solid #afc7ce;
+
+    input, textarea {
+        display: block;
+        margin-bottom: 25px;
+        width: 100%;
+        padding: 10px;
+        border-radius: 7px;
+        border: 0 none;
+    }
+
+    input {
+        height: 40px;
+    }
+
+    textarea {
+        height: 160px;
+    }
+
+    h2 {
+        color: #fcfeff;
+        margin: 0 0 25px 0;
+    }
+    button {
+      
+        background: #8ad8d3;
+    
+        border: 0 none;
+        padding: 10px 15px;
+        color: #1e2827;
+        border-radius: 7px;
+        font-size: 22px;
+        // background:#42a59f;
+        
+        font-family: 'PT Serif', serif;
+        font-size: 16px;
+    }
+}

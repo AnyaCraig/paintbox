@@ -146,7 +146,7 @@ class AddArtwork extends Component {
                     <input name="medium" type="text" value={this.state.medium} placeholder="medium" onChange={this.handleArtworkChange} />
                     <textarea name="description" value={this.state.description} placeholder="description" onChange={this.handleArtworkChange}></textarea>
                 </form>
-                <button onClick={this.packageArtwork}>SUBMIT</button>
+                <button onClick={this.packageArtwork}>Add this artwork</button>
             </div>
         );
     }

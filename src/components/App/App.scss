@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Fascinate|PT+Serif');
+
 body, html {
     margin: 0;
     border: 0;
@@ -13,5 +15,45 @@ html {
 }
 
 body {
-    background-color: #daeef2;
+    background-color: #daeef2; 
+    background: radial-gradient(#daeef2 12%, transparent 40%) 0 0,
+    radial-gradient(#daeef2 12%, transparent 40%) 12px 12px,
+    radial-gradient(#d0eded 48%, transparent 66%) 0px 0px,
+     radial-gradient(#d0eded 48%, transparent 66%) 12px 12px,
+    radial-gradient(#ffe382 12%, #e3f7f7 33%) 0 0;
+    background-size: 24px 24px;
+
+    font-family: 'PT Serif', serif;
+    color: #1e2827;
+}
+.app-container {
+    padding-bottom: 60px;
+}
+.app-header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+
+    a {
+        text-decoration: none;
+    }
+    
+    .header-link {
+        padding: 25px;
+        text-decoration: none;
+        font-size: 18px;
+        color: #1f5059;
+    }
+
+    h1.title {
+        padding: 25px;
+        margin: 0;
+        font-family: 'Fascinate', cursive;
+        color: #438c81;
+
+    }
+
 }
