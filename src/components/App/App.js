@@ -113,7 +113,7 @@ class App extends Component {
         <div className='app-container'>
         <div className="app-header">
         <Link to='/artworks'>
-          <h1 className="title">Welcome to Paintbox, {this.state.user.firstName}!</h1>	
+          <h1 className="title">Welcome to <span class="highlight">Paintbox</span>, {this.state.user.firstName}!</h1>	
         </Link>
           <div className="links">
             {/* <Link className="header-link" to='/users'>Users</Link> */}
