@@ -2,17 +2,25 @@
 
 .artists-root {
     border: 2px solid tomato;
+    display: flex;
+    justify-content: center;
 
     .artists-container {
         border: 2px solid green;
         display: flex;
         flex-wrap: wrap;
+        max-width: 1200px;
+        justify-content: space-between;
     }
 
+    
     .artists-container a {
         border: 2px solid red;
+        background-color: white;
         min-width: 300px;
         width: 25%;
+        margin-bottom: 25px;
+        // margin: 20px;
 
         .artist-image {
             width: 100%;

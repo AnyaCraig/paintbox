@@ -70,6 +70,8 @@ class Artwork extends Component {
           <Link to={`/artists/${artwork.artist._id}`}>
             <h4>{artwork.artist.firstName} {artwork.artist.lastName}</h4>
           </Link> 
+
+          <p className="artwork-year">{parseInt(artwork.year)}</p>
           <p className="artwork-description">{artwork.description}</p>
         </div>
         {carouselRequirements && (
@@ -78,6 +80,9 @@ class Artwork extends Component {
 
         <div className="delete-artwork-container">
           <button onClick={e => this.deleteArtwork(artwork._id)}>Delete this thing</button>
+        </div>
+        <div className="edit-artwork-link-container">
+          <Link to={`/artists/${artwork.artist._id}/edit-artwork/${artwork._id}`}>{`Edit details for ${artwork.name}`}</Link>
         </div>
       </div>
     )
